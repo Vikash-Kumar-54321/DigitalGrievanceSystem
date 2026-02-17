@@ -55,13 +55,23 @@
     button:hover {
       opacity: 0.85;
     }
+    .logout{
+        text-decoration: none;
+        color: white;
+        transition: transform 0.2s ease-in-out;
+    }
+    .logout:hover{
+        color: red;
+        transform: scale(1.3); font-weight: 700;
+        
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
+      <a class="logout" href="/logout" style="float:right;">Logout</a>
     <h2>Submit a Complaint</h2>
-    <a href="/logout" style="color:white; float:right;">Logout</a>
 
     <form method="POST" action="/student/submit-complaint">
       <select name="department" required>

@@ -8,9 +8,9 @@ const checkRole = require("./middleware/role.middleware");
 const cookieParser = require("cookie-parser");
 
 require("dotenv").config();
-app.use(cookieParser());
 
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
