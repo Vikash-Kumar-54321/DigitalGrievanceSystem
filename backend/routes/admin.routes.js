@@ -3,22 +3,30 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
-router.post("/create-department", async (req, res) => {
-  const { name, email, password, level, parentDepartment } = req.body;
+const auth = require("../middleware/auth.middleware");
+const checkRole = require("../middleware/role.middleware");
 
-  const hashed = await bcrypt.hash(password, 10);
+router.post(
+  "/create-department",
+  auth,
+  checkRole("admin"),
+  async (req, res) => {
+    const { name, email, password, level, parentDepartment } = req.body;
 
-  await User.create({
-    name,
-    email,
-    password: hashed,
-    role: "department",
-    department: name,
-    level,
-    parentDepartment
-  });
+    const hashed = await bcrypt.hash(password, 10);
 
-  res.send("Department created successfully");
-});
+    await User.create({
+      name,
+      email,
+      password: hashed,
+      role: "department",
+      department: name,
+      level,
+      parentDepartment: parentDepartment || null,
+    });
+
+    res.send("Department created successfully");
+  }
+);
 
 module.exports = router;

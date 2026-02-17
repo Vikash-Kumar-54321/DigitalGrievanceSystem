@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Segoe UI, sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: #fff;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(15px);
+      padding: 40px;
+      border-radius: 18px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    select, textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    textarea {
+      resize: none;
+      height: 120px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(45deg, #00c6ff, #0072ff);
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Submit a Complaint</h2>
+    <a href="/logout" style="color:white; float:right;">Logout</a>
+
+    <form method="POST" action="/student/submit-complaint">
+      <select name="department" required>
+        <option value="">Select Department</option>
+        <option value="Hostel">Hostel</option>
+        <option value="Library">Library</option>
+        <option value="Exam">Exam Cell</option>
+        <option value="Accounts">Accounts</option>
+      </select>
+
+      <textarea name="message" placeholder="Describe your issue..." required></textarea>
+
+      <button type="submit">Submit Complaint</button>
+    </form>
+  </div>
+</body>
+</html>
