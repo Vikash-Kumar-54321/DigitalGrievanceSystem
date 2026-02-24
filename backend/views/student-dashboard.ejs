@@ -12,8 +12,8 @@
 
     .container {
       max-width: 900px;
-      margin: 60px auto;
-      background: rgba(255,255,255,0.1);
+      margin: 50px auto;
+      background: rgba(255,255,255,0.08);
       backdrop-filter: blur(15px);
       padding: 40px;
       border-radius: 18px;
@@ -22,56 +22,55 @@
 
     h2 {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
     select, textarea {
       width: 100%;
-      padding: 14px;
-      border-radius: 10px;
+      padding: 12px;
+      border-radius: 8px;
       border: none;
-      margin-bottom: 20px;
-      font-size: 1rem;
+      margin-bottom: 15px;
     }
 
     textarea {
+      height: 100px;
       resize: none;
-      height: 120px;
     }
 
     button {
       width: 100%;
-      padding: 14px;
-      border-radius: 10px;
+      padding: 12px;
+      border-radius: 8px;
       border: none;
-      font-size: 1rem;
+      background: linear-gradient(45deg, #00c6ff, #0072ff);
       font-weight: bold;
       cursor: pointer;
-      background: linear-gradient(45deg, #00c6ff, #0072ff);
-      color: #fff;
-      transition: 0.3s;
+      margin-bottom: 30px;
     }
 
-    button:hover {
-      opacity: 0.85;
+    .complaint-card {
+      background: rgba(255,255,255,0.12);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
     }
-    .logout{
-        text-decoration: none;
-        color: white;
-        transition: transform 0.2s ease-in-out;
+
+    .status {
+      font-weight: bold;
+      margin-top: 10px;
     }
-    .logout:hover{
-        color: red;
-        transform: scale(1.3); font-weight: 700;
-        
-    }
+
+    .pending { color: orange; }
+    .progress { color: yellow; }
+    .resolved { color: lightgreen; }
+
   </style>
 </head>
 
 <body>
   <div class="container">
-      <a class="logout" href="/logout" style="float:right;">Logout</a>
-    <h2>Submit a Complaint</h2>
+    <h2>Submit Complaint</h2>
 
     <form method="POST" action="/student/submit-complaint">
       <select name="department" required>
@@ -86,6 +85,36 @@
 
       <button type="submit">Submit Complaint</button>
     </form>
+
+    <h2>Your Complaints</h2>
+
+    <% if (complaints.length === 0) { %>
+      <p>No complaints submitted yet.</p>
+    <% } %>
+
+    <% complaints.forEach(c => { %>
+      <div class="complaint-card">
+        <p><strong>Department:</strong> <%= c.department %></p>
+        <p><strong>Message:</strong> <%= c.message %></p>
+
+
+
+        <% if (c.status === "Pending") { %>
+          <p class="status pending">Status: Pending</p>
+        <% } else if (c.status === "In Progress") { %>
+          <p class="status progress">Status: In Progress</p>
+        <% } else { %>
+            <p><strong>Remarks:</strong> <%= c.remarks %></p>
+            <p>
+              <a href="/uploads/<%= c.proofDocument %>" 
+                target="_blank" style="color:lightgreen;">
+                View Proof Document
+              </a>
+            </p>
+          <% } %>
+      </div>
+    <% }) %>
+
   </div>
 </body>
 </html>

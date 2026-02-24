@@ -19,6 +19,14 @@ const complaintSchema = new mongoose.Schema(
       type: String,
       default: "Pending",
     },
+    remarks: {
+  type: String,
+  default: null
+  },
+  proofDocument: {
+    type: String,
+    default: null
+  }
   },
   { timestamps: true }
 );
